@@ -26,7 +26,7 @@
             <!-- User info box -->
             <div v-if="userinfo" class="card card-body bg-light my-3">
                 <div class="media">
-                    <img class="img-fluid rounded align-center-self mr-3" style="max-width: 5rem;" :src="user_image">
+                    <img class="img-fluid rounded align-center-self mr-3" v-if="user_image" style="max-width: 5rem;" :src="user_image">
                     <div class="media-body my-auto">
                         <h4>{{ userinfo.display_name }} {{ country_flag }}</h4>
                         <span v-if="userinfo.followers">Followers: {{ userinfo.followers.total }}<br></span>

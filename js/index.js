@@ -38,7 +38,7 @@ var app = new Vue({
     },
     computed: {
         user_image: function() {
-            if (this.userinfo.images && this.userinfo.images[0].url) {
+            if (this.userinfo.images && this.userinfo.images[0] && this.userinfo.images[0].url) {
                 return this.userinfo.images[0].url;
             }
             return null;
