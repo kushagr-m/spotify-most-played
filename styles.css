@@ -1,0 +1,41 @@
+[v-cloak] {
+    display: none!important;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.term-button {
+    position: absolute;
+    right: 0;
+}
+
+.track-image {
+    object-fit: cover;
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+.explicit {
+    font-size: 0.7rem;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
+.link-unstyled:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
