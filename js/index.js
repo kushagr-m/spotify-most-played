@@ -125,7 +125,6 @@ var app = new Vue({
             .then((response) => {
                 console.log(response);
                 let id = response.data.id;
-                // console.log(id)
                 this.axios.post(`/playlists/${id}/tracks`, {
                     uris: this.top.tracks[this.state.term].items.map(x => x.uri)
                 }).then((response) => {
@@ -171,6 +170,7 @@ function generateRandomString(length) {
 */
 const countryCodeFlag = cc => String(cc).toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0)+127397));
 
+/* main(): authorise app on start. */
 var stateKey = 'spotify_auth_state';
 
 var params = getHashParams();
@@ -180,7 +180,6 @@ var access_token = params.access_token,
     storedState = localStorage.getItem(stateKey);
 
 if (!access_token || state == null || state !== storedState) {
-    // If there was an error, reauthorise.
     app.authorise();
 }
 else {
