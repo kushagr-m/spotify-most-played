@@ -41,7 +41,7 @@
 
             <!-- Term selector -->
             <div class="term-button d-block">
-                <button type="button" class="btn btn-success d-inline-block my-1" v-on:click="create_playlist" v-if="state.type == 'tracks'">
+                <button type="button" class="btn btn-success d-inline-block my-1" :disabled="state.type != 'tracks'" v-on:click="create_playlist">
                     {{ playlist_btn.current }}
                 </button>
 
