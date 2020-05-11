@@ -85,6 +85,18 @@ var app = new Vue({
             url += '&state=' + encodeURIComponent(state);
             // Redirect to Spotify login page.
             window.location = url;
+        },
+        second_last_image: function(images) {
+            let index = (images.length >= 2)
+                    ? images.length - 2
+                    : images.length - 1;
+            if (index >= 0) {
+                return images[index].url
+            }
+            return '';
+        },
+        spotify_url: function(obj) {
+            return obj.external_urls.spotify ? obj.external_urls.spotify : '';
         }
     }
 });

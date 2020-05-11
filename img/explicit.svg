@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.0//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg fill-opacity="1" xmlns:xlink="http://www.w3.org/1999/xlink" color-rendering="auto" color-interpolation="auto" text-rendering="auto" stroke="black" stroke-linecap="square" stroke-miterlimit="10" shape-rendering="auto" stroke-opacity="1" fill="black" stroke-dasharray="none" font-weight="normal" stroke-width="1" xmlns="http://www.w3.org/2000/svg" font-family="&apos;Dialog&apos;" font-style="normal" stroke-linejoin="miter" font-size="12" stroke-dashoffset="0" image-rendering="auto">
+  <!--Unicode Character 'NEGATIVE SQUARED LATIN CAPITAL LETTER E' (U+1F174)-->
+  <defs id="genericDefs" />
+  <g>
+    <g>
+      <path d="M255.7969 367.3125 Q255.7969 394.875 228.0938 394.875 L59.9062 394.875 Q32.2031 394.875 32.2031 367.3125 L32.2031 199.125 Q32.2031 171.4219 59.9062 171.4219 L228.0938 171.4219 Q255.7969 171.4219 255.7969 199.125 L255.7969 367.3125 ZM181.9688 344.25 L181.9688 328.3594 L128.6719 328.3594 L128.6719 287.2969 L179.1562 287.2969 L179.1562 271.9688 L128.6719 271.9688 L128.6719 236.5312 L181.9688 236.5312 L181.9688 220.6406 L108.8438 220.6406 L108.8438 344.25 L181.9688 344.25 Z" stroke="none" />
+    </g>
+  </g>
+</svg>

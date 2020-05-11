@@ -47,7 +47,8 @@ html {
 
 
 .explicit {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
+    vertical-align: 2px;
 }
 
 .table td, .table th {
