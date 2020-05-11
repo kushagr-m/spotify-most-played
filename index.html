@@ -56,35 +56,39 @@
                     </button>
                 </li>
 
-                <li class="nav-item ml-auto mr-0">
-                </li>
-
             </ul>
 
-            <table class="table" v-if="state.type == 'tracks'">
+            <table class="table table-sm" v-if="state.type == 'tracks'">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 2rem;">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Artist</th>
+                        <th scope="col" style="width: 2rem; text-align: center;">#</th>
+                        <th scope="col">
+                            <span class="d-none d-md-inline">Title</span>
+                            <span class="d-md-none">Track</span>
+                        </th>
+                        <th scope="col" class="d-none d-md-table-cell">Artist</th>
                         <th scope="col" class="d-none d-md-table-cell">Album</th>
                         <th scope="col" class="d-none d-md-table-cell">&#x1F550;</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(track, index) in top.tracks[state.term].items">
-                        <th scope="row">{{ index + 1 }}</th>
+                        <th scope="row" class="text-center">{{ index + 1 }}</th>
                         <td>
                             <div class="media">
                                 <a v-if="track.album.images[track.album.images.length-1]" :href="track.album.external_urls.spotify ? track.album.external_urls.spotify : ''">
-                                    <img class="img-fluid rounded track-image align-center-self mr-3 d-none d-md-block" :src="track.album.images[track.album.images.length-1].url" :alt="track.album.name">
+                                    <img class="img-fluid rounded track-image align-center-self" :src="track.album.images[track.album.images.length-1].url" :alt="track.album.name">
                                 </a>
                                 <div class="media-body my-auto">
                                     {{ track.name }}
+                                    <span class="d-md-none text-muted">
+                                        <br>
+                                        <span v-for="(artist, key) in track.artists"><span v-if="key !== 0">, </span>{{ artist.name }}</span>
+                                    </span>
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td class="d-none d-md-table-cell">
                             <span v-for="(artist, key) in track.artists"><span v-if="key !== 0">, </span>{{ artist.name }}</span>
                         </td>
                         <td class="d-none d-md-table-cell">
@@ -97,7 +101,7 @@
                 </tbody>
             </table>
 
-            <table class="table" v-if="state.type == 'artists'">
+            <table class="table table-sm" v-if="state.type == 'artists'">
                 <thead>
                     <tr>
                         <th scope="col" style="width: 2rem;">#</th>
@@ -111,7 +115,7 @@
                         <td>
                             <div class="media">
                                 <a v-if="artist.images[artist.images.length-1]" :href="artist.external_urls.spotify ? artist.external_urls.spotify : ''">
-                                    <img class="img-fluid rounded track-image align-center-self mr-3" :src="artist.images[artist.images.length-1].url" :alt="artist.name">
+                                    <img class="img-fluid rounded track-image align-center-self" :src="artist.images[artist.images.length-1].url" :alt="artist.name">
                                 </a>
                                 <div class="media-body my-auto">
                                     {{ artist.name }}

@@ -14,9 +14,22 @@ html {
 
 .track-image {
     object-fit: cover;
-    height: 3.5rem;
-    width: 3.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+
+    height: 3rem;
+    width: 3rem;
+    margin-right: 0.75rem;
 }
+
+@media (min-width: 768px) {
+    .track-image {
+        height: 3.5rem;
+        width: 3.5rem;
+        margin-right: 1rem;
+    }
+}
+
 
 .explicit {
     font-size: 0.7rem;
