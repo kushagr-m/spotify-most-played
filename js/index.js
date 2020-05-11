@@ -32,7 +32,7 @@ var app = new Vue({
         },
         terms: {
             short: 'Short Term (~4 weeks)',
-            medium: 'Medium Term (~6 months)',
+            medium: 'Medium (~6 months)',
             long: 'Long Term (All time)'
         },
         state: {
