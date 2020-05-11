@@ -58,11 +58,11 @@
             </div>
 
             <!-- Navigation -->
-            <ul class="nav nav-tabs mt-sm-n5 type-nav">
+            <ul class="nav nav-tabs mt-n2 mt-md-n5 type-nav">
 
                 <li v-for="(val, key) in types" class="nav-item d-block">
                     <br>
-                    <button class="nav-link" v-bind:class="{ active: state.type == key }" v-on:click.prevent="state.type = key" href="#">
+                    <button class="nav-link" v-bind:class="{ active: state.type == key }" v-on:click.stop.prevent="state.type = key" data-target="#">
                         {{ val }}
                     </button>
                 </li>
@@ -105,7 +105,8 @@
                             </div>
                         </td>
                         <td class="d-none d-md-table-cell text-muted">
-                            {{ Math.floor(track.duration_ms / 60000) }}:{{ String(Math.floor((track.duration_ms / 1000) % 60)).padStart(2, '0') }}
+                            {{ ms_to_duration(track.duration_ms) }}
+                            <!-- {{ Math.floor(track.duration_ms / 60000) }}:{{ String(Math.floor((track.duration_ms / 1000) % 60)).padStart(2, '0') }} -->
                         </td>
                     </tr>
                 </tbody>

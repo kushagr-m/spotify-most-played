@@ -109,6 +109,9 @@ var app = new Vue({
         spotify_url: function(obj) {
             return obj.external_urls.spotify ? obj.external_urls.spotify : '';
         },
+        ms_to_duration: function(ms) {
+            return `${ Math.floor(ms / 60000) }:${ String(Math.floor((ms / 1000) % 60)).padStart(2, '0') }`
+        },
         create_playlist: function() {
             if (!this.axios) { return }
             this.playlist_btn.current = this.playlist_btn.during;
