@@ -142,7 +142,7 @@ function getHashParams() {
     while ( e = r.exec(q)) {
         hashParams[e[1]] = decodeURIComponent(e[2]);
     }
-    window.location.hash = '';
+    history.replaceState("", document.title, window.location.pathname + window.location.search);
     return hashParams;
 }
 
