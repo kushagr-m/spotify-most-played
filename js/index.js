@@ -75,7 +75,7 @@ var app = new Vue({
             var state = generateRandomString(16);
             localStorage.setItem(stateKey, state);
 
-            var scope = 'user-read-private user-read-email user-top-read';
+            var scope = 'user-read-private user-top-read';
 
             var url = 'https://accounts.spotify.com/authorize';
             url += '?response_type=token';
@@ -97,6 +97,20 @@ var app = new Vue({
         },
         spotify_url: function(obj) {
             return obj.external_urls.spotify ? obj.external_urls.spotify : '';
+        },
+        popularity_eighths: function(popularity) {
+            let arr = [];
+            while (popularity > 0) {
+                if (popularity > 12.5) {
+                    arr.push(12.5);
+                    popularity -= 12.5
+                }
+                else {
+                    arr.push(popularity);
+                    break;
+                }
+            }
+            return arr;
         }
     }
 });

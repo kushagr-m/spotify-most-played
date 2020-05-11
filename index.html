@@ -106,8 +106,7 @@
                 <thead>
                     <tr>
                         <th scope="col" class="number-col">#</th>
-                        <th scope="col">Name</th>
-                        <!-- <th scope="col">Genres</th> -->
+                        <th scope="col">Artist</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -115,15 +114,14 @@
                         <th scope="row" class="text-center">{{ index + 1 }}</th>
                         <td>
                             <div class="media">
-                                <a v-if="artist.images[artist.images.length-1]" :href="artist.external_urls.spotify ? artist.external_urls.spotify : ''">
-                                    <img class="img-fluid rounded track-image align-center-self" :src="artist.images[artist.images.length-1].url" :alt="artist.name">
+                                <a v-if="second_last_image(artist.images)" :href="spotify_url(artist)">
+                                    <img class="img-fluid rounded track-image align-center-self" :src="second_last_image(artist.images)" :alt="artist.name">
                                 </a>
                                 <div class="media-body my-auto">
                                     {{ artist.name }}
                                 </div>
                             </div>
                         </td>
-
                     </tr>
                 </tbody>
             </table>
