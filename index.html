@@ -78,7 +78,7 @@
                         <th scope="row" class="text-center">{{ index + 1 }}</th>
                         <td>
                             <div class="media">
-                                <a v-if="track.album.images[track.album.images.length-1]" :href="track.album.external_urls.spotify ? track.album.external_urls.spotify : ''">
+                                <a v-if="track.album.images[track.album.images.length-1]" :href="track.external_urls.spotify ? track.external_urls.spotify : ''">
                                     <img class="img-fluid rounded track-image align-center-self" :src="track.album.images[track.album.images.length-1].url" :alt="track.album.name">
                                 </a>
                                 <div class="media-body my-auto">
