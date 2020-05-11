@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script defer src="js/index.js"></script>
 </head>
 <body>
     <div id="app">
@@ -21,7 +23,7 @@
             <a class="navbar-brand" href="">Spotify Most Played</a>
         </nav>
 
-        <div class="container mb-5" v-cloak v-if="loaded">
+        <div class="container mb-5" v-cloak :class="{ 'd-none': !loaded }">
 
             <!-- User info box -->
             <div v-if="userinfo" class="card card-body bg-light my-3">
@@ -131,12 +133,14 @@
 
         <div class="container" v-if="!loaded">
             <!-- Not loaded -->
-            Loading...
+            <span class="text-center loading-text">
+                Loading...
+            </span>
         </div>
 
         <!-- <a href="#" v-on:click="authorise">Relogin</a> -->
 
-    </div>
+    </span>
 
     <div class="footer py-2 container-fluid bg-dark text-light" style="font-size: 0.8rem">
         <div class="container">
@@ -144,6 +148,5 @@
             Open source on <a class="link-unstyled" href="https://github.com/theKKCD/spotify-most-played/">GitHub</a>.
         </div>
     </div>
-    <script src="js/index.js"></script>
 </body>
 </html>

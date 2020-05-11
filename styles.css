@@ -8,6 +8,15 @@ html {
     min-height: 100%;
 }
 
+.loading-text {
+    position: absolute;
+    font-weight: light;
+    font-size: 2.5rem;
+    top: calc(50% - 2.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .term-button {
     position: absolute;
     right: 0;
