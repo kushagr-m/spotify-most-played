@@ -69,8 +69,8 @@
                         <th scope="col" class="d-none d-md-table-cell">&#x1F550;</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr v-for="(track, index) in top.tracks[state.term].items">
+                <tbody v-for="(val, key) in terms">
+                    <tr v-for="(track, index) in top.tracks[key].items" v-show="state.term === key">
                         <th scope="row" class="text-center">{{ index + 1 }}</th>
                         <td>
                             <div class="media">
