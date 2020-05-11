@@ -50,7 +50,7 @@
                         {{ terms[state.term] }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a v-for="(val, key) in terms" class="dropdown-item" v-bind:class="{ active: state.term == key }" v-on:click="state.term = key" href="#">
+                        <a v-for="(val, key) in terms" class="dropdown-item" v-bind:class="{ active: state.term == key }" v-on:click.prevent="state.term = key" href="#">
                             {{ val }}
                         </a>
                     </div>
@@ -62,7 +62,7 @@
 
                 <li v-for="(val, key) in types" class="nav-item d-block">
                     <br>
-                    <button class="nav-link" v-bind:class="{ active: state.type == key }" v-on:click="state.type = key" href="#">
+                    <button class="nav-link" v-bind:class="{ active: state.type == key }" v-on:click.prevent="state.type = key" href="#">
                         {{ val }}
                     </button>
                 </li>
@@ -118,8 +118,8 @@
                         <th scope="col">Artist</th>
                     </tr>
                 </thead>
-                <tbody v-lazy-container="{ selector: 'img' }">
-                    <tr v-for="(artist, index) in top.artists[state.term].items">
+                <tbody v-for="(val, key) in terms" v-show="state.term == key"  v-lazy-container="{ selector: 'img' }">
+                    <tr v-for="(artist, index) in top.artists[key].items">
                         <th scope="row" class="text-center">{{ index + 1 }}</th>
                         <td>
                             <div class="media">
