@@ -61,7 +61,7 @@
             <table class="table table-sm" v-if="state.type == 'tracks'">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 2rem; text-align: center;">#</th>
+                        <th scope="col" class="number-col">#</th>
                         <th scope="col">
                             <span class="d-none d-md-inline">Title</span>
                             <span class="d-md-none">Track</span>
@@ -104,14 +104,14 @@
             <table class="table table-sm" v-if="state.type == 'artists'">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 2rem;">#</th>
+                        <th scope="col" class="number-col">#</th>
                         <th scope="col">Name</th>
                         <!-- <th scope="col">Genres</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(artist, index) in top.artists[state.term].items">
-                        <th scope="row">{{ index + 1 }}</th>
+                        <th scope="row" class="text-center">{{ index + 1 }}</th>
                         <td>
                             <div class="media">
                                 <a v-if="artist.images[artist.images.length-1]" :href="artist.external_urls.spotify ? artist.external_urls.spotify : ''">
@@ -138,7 +138,7 @@
 
     </div>
 
-    <div class="footer py-2 container-fluid bg-dark text-light">
+    <div class="footer py-2 container-fluid bg-dark text-light" style="font-size: 0.8rem">
         <div class="container">
             By <a class="link-unstyled" href="https://kushagr.net/">Kush Mittal</a>.
             Open source on <a class="link-unstyled" href="https://github.com/theKKCD/spotify-most-played/">GitHub</a>.

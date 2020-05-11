@@ -1,5 +1,6 @@
 [v-cloak] {
     display: none!important;
+    visibility: hidden!important;
 }
 
 html {
@@ -20,6 +21,11 @@ html {
     height: 3rem;
     width: 3rem;
     margin-right: 0.75rem;
+}
+
+.number-col {
+    width: 2rem;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
