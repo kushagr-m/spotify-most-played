@@ -3,6 +3,7 @@ const REDIRECT_URI = (window.location.href.indexOf('localhost') >= 0)
                         ? 'http://localhost:8888/'
                         : 'https://kushagr.net/spotify-most-played/';
 const BASEURL = 'https://api.spotify.com/v1';
+const PLAYLIST_BUTTON_TEXT = 'Make playlist';
 
 var app = new Vue({
     el: '#app',
@@ -37,10 +38,10 @@ var app = new Vue({
             term: 'short'
         },
         playlist_btn: {
-            original: 'Create a playlist with these tracks!',
-            during: 'Creating...',
+            original: PLAYLIST_BUTTON_TEXT,
+            during: 'Working...',
             done: 'Done!',
-            current: 'Create a playlist with these tracks!'
+            current: PLAYLIST_BUTTON_TEXT
         }
     },
     computed: {
@@ -109,9 +110,14 @@ var app = new Vue({
         create_playlist: function() {
             if (!this.axios) { return }
             this.playlist_btn.current = this.playlist_btn.during;
+            let term_description = (this.state.term === 'short') ? "over the past 4 weeks"
+                            : (this.state.term === 'medium') ? "over the past 6 months"
+                            : "from all time";
             this.axios.post(`/users/${this.userinfo.id}/playlists`, {
-                name: `Most Played: ${this.terms[this.state.term]}, ${new Date().toJSON().slice(0,10).split('-').reverse().join('/')}`
-            }).then((response) => {
+                name: `Most Played: ${this.terms[this.state.term]}, ${new Date().toJSON().slice(0,10).split('-').reverse().join('/')}`,
+                description: `Your 50 most played tracks ${term_description}. Made at kushagr.net/spotify-most-played`
+            })
+            .then((response) => {
                 console.log(response);
                 let id = response.data.id;
                 // console.log(id)
