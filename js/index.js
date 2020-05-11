@@ -8,7 +8,6 @@ var app = new Vue({
     el: '#app',
     data: {
         access_token: null,
-        axios: null,
         loaded: false,
         userinfo: {},
         top: {
@@ -52,18 +51,20 @@ var app = new Vue({
         access_token: function() {
             if (!access_token) { return }
             var thisApp = this;
-            this.axios = axios.create({
-                baseURL: BASEURL,
-                timeout: 3600,
-                headers: { 'Authorization': 'Bearer ' + access_token }
+            // Get user data
+            $.ajax({
+                url: BASEURL + '/me',
+                headers: { 'Authorization': 'Bearer ' + access_token },
+                success: function(response) { thisApp.userinfo = response; }
             });
-            this.axios.get('/me').then((response) => { this.userinfo = response.data; });
+            // Get top
             for (let type of Object.keys(thisApp.top)) {
                 for (let term of Object.keys(thisApp.terms)) {
-                    this.axios.get(`/me/top/${type}/?limit=50&time_range=${term}_term`)
-                        .then((response) => {
-                            this.top[type][term] = response.data;
-                        });
+                    $.ajax({
+                        url: BASEURL + '/me/top/' + type + '?limit=50&time_range=' + term + '_term',
+                        headers: { 'Authorization': 'Bearer ' + access_token },
+                        success: function(response) { thisApp.top[type][term] = response; }
+                    });
                 }
             }
             this.loaded = true;
@@ -74,7 +75,7 @@ var app = new Vue({
             var state = generateRandomString(16);
             localStorage.setItem(stateKey, state);
 
-            var scope = 'user-read-private user-top-read playlist-modify-public playlist-modify-private';
+            var scope = 'user-read-private user-top-read';
 
             var url = 'https://accounts.spotify.com/authorize';
             url += '?response_type=token';
