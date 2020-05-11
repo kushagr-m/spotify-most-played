@@ -24,7 +24,7 @@
             <a class="navbar-brand" href="">Spotify Most Played</a>
         </nav>
 
-        <div class="container mb-5" v-cloak :class="{ 'd-none': !loaded }">
+        <div class="container mb-5" v-cloak :class="{ 'd-none': !loaded }" style="position: relative;">
 
             <!-- User info box -->
             <div v-show="userinfo" class="card card-body bg-light my-3" v-cloak>
@@ -38,19 +38,25 @@
             </div>
 
             <!-- Term selector -->
-            <div class="dropdown mb-sm-n4">
-                <button class="btn btn-secondary dropdown-toggle term-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ terms[state.term] }}
+            <div class="term-button d-block">
+                <button type="button" class="btn btn-success d-inline-block my-1" v-on:click="create_playlist" v-if="state.type == 'tracks'">
+                    {{ playlist_btn.current }}
                 </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a v-for="(val, key) in terms" class="dropdown-item" v-bind:class="{ active: state.term == key }" v-on:click="state.term = key" href="#">
-                        {{ val }}
-                    </a>
+
+                <div class="dropdown mb-sm-n4 d-inline-block">
+                    <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ terms[state.term] }}
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <a v-for="(val, key) in terms" class="dropdown-item" v-bind:class="{ active: state.term == key }" v-on:click="state.term = key" href="#">
+                            {{ val }}
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <!-- Navigation -->
-            <ul class="nav nav-tabs mt-sm-n5" style="margin-top: 2.5rem!important;">
+            <ul class="nav nav-tabs mt-sm-n5 type-nav">
 
                 <li v-for="(val, key) in types" class="nav-item d-block">
                     <br>
@@ -69,8 +75,8 @@
                         <th scope="col" class="d-none d-md-table-cell">&#x1F550;</th>
                     </tr>
                 </thead>
-                <tbody v-for="(val, key) in terms">
-                    <tr v-for="(track, index) in top.tracks[key].items" v-show="state.term === key">
+                <tbody v-for="(val, key) in terms" v-show="state.term == key">
+                    <tr v-for="(track, index) in top.tracks[key].items">
                         <th scope="row" class="text-center">{{ index + 1 }}</th>
                         <td>
                             <div class="media">

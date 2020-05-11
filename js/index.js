@@ -35,6 +35,12 @@ var app = new Vue({
         state: {
             type: 'tracks',
             term: 'short'
+        },
+        playlist_btn: {
+            original: 'Create a playlist with these tracks!',
+            during: 'Creating...',
+            done: 'Done!',
+            current: 'Create a playlist with these tracks!'
         }
     },
     computed: {
@@ -49,21 +55,26 @@ var app = new Vue({
         }
     },
     watch: {
+        'state.type': function() {
+            this.playlist_btn.current = this.playlist_btn.original;
+        },
+        'state.term': function() {
+            this.playlist_btn.current = this.playlist_btn.original;
+        },
         access_token: function() {
             if (!access_token) { return }
-            var thisApp = this;
             this.axios = axios.create({
                 baseURL: BASEURL,
                 timeout: 3600,
                 headers: { 'Authorization': 'Bearer ' + access_token }
             });
             this.axios.get('/me').then((response) => { this.userinfo = response.data; });
-            for (let type of Object.keys(thisApp.top)) {
-                for (let term of Object.keys(thisApp.terms)) {
+            for (let type of Object.keys(this.top)) {
+                for (let term of Object.keys(this.terms)) {
                     this.axios.get(`/me/top/${type}/?limit=50&time_range=${term}_term`)
-                        .then((response) => {
-                            this.top[type][term] = response.data;
-                        });
+                    .then((response) => {
+                        this.top[type][term] = response.data;
+                    });
                 }
             }
             this.loaded = true;
@@ -73,9 +84,7 @@ var app = new Vue({
         authorise: function() {
             var state = generateRandomString(16);
             localStorage.setItem(stateKey, state);
-
             var scope = 'user-read-private user-top-read';
-
             var url = 'https://accounts.spotify.com/authorize';
             url += '?response_type=token';
             url += '&client_id=' + encodeURIComponent(CLIENT_ID);
@@ -97,19 +106,21 @@ var app = new Vue({
         spotify_url: function(obj) {
             return obj.external_urls.spotify ? obj.external_urls.spotify : '';
         },
-        popularity_eighths: function(popularity) {
-            let arr = [];
-            while (popularity > 0) {
-                if (popularity > 12.5) {
-                    arr.push(12.5);
-                    popularity -= 12.5
-                }
-                else {
-                    arr.push(popularity);
-                    break;
-                }
-            }
-            return arr;
+        create_playlist: function() {
+            if (!this.axios) { return }
+            this.playlist_btn.current = this.playlist_btn.during;
+            this.axios.post(`/users/${this.userinfo.id}/playlists`, {
+                name: `Most Played: ${this.terms[this.state.term]}, ${new Date().toJSON().slice(0,10).split('-').reverse().join('/')}`
+            }).then((response) => {
+                console.log(response);
+                let id = response.data.id;
+                // console.log(id)
+                this.axios.post(`/playlists/${id}/tracks`, {
+                    uris: this.top.tracks[this.state.term].items.map(x => x.uri)
+                }).then((response) => {
+                    this.playlist_btn.current = this.playlist_btn.done;
+                });
+            });
         }
     }
 });
