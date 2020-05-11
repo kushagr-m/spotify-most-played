@@ -5,6 +5,8 @@ const REDIRECT_URI = (window.location.href.indexOf('localhost') >= 0)
 const BASEURL = 'https://api.spotify.com/v1';
 const PLAYLIST_BUTTON_TEXT = 'Make playlist';
 
+Vue.use(VueLazyload);
+
 var app = new Vue({
     el: '#app',
     data: {
