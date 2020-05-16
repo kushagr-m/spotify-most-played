@@ -1,7 +1,5 @@
 const CLIENT_ID = '83f31bdab709444fa604b90eb05addd6';
-const REDIRECT_URI = (window.location.href.indexOf('localhost') >= 0)
-                        ? 'http://localhost:8888/'
-                        : 'https://kushagr.net/spotify-most-played/';
+const REDIRECT_URI = window.location.origin + window.location.pathname;
 const BASEURL = 'https://api.spotify.com/v1';
 const PLAYLIST_BUTTON_TEXT = 'Make playlist';
 
