@@ -63,7 +63,12 @@
                             </div>
                         </div>
                         <form>
-                            <div class="custom-control custom-switch">
+                            <select class="custom-select" v-model="state.term">
+                                <option v-for="(val, key) in terms" :value="key">
+                                    {{ val.name }}
+                                </option>
+                            </select>
+                            <div class="custom-control custom-switch mt-2">
                                 <input type="checkbox" class="custom-control-input" id="playlistModalPublicSwitch" v-model="playlist_generation.public">
                                 <label class="custom-control-label" for="playlistModalPublicSwitch">
                                     Make playlist public 
@@ -114,7 +119,6 @@
                 </div>
             </div>
 
-            <!-- Term selector -->
             <div class="term-button d-block">
 
                 <!-- Playlist button - triggers modal -->
@@ -122,6 +126,7 @@
                     Make a playlist!
                 </button>
 
+                <!-- Term selector -->
                 <div class="dropdown mb-sm-n4 d-inline-block">
                     <button class="btn btn-secondary dropdown-toggle my-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ terms[state.term].name }}
