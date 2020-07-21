@@ -1,7 +1,6 @@
 const CLIENT_ID = '83f31bdab709444fa604b90eb05addd6';
 const REDIRECT_URI = window.location.origin + window.location.pathname;
 const BASEURL = 'https://api.spotify.com/v1';
-const PLAYLIST_BUTTON_TEXT = 'Make playlist';
 
 Vue.use(VueLazyload);
 
@@ -33,16 +32,21 @@ var app = new Vue({
             medium: 'Medium (~6 months)',
             long: 'Long Term (All time)'
         },
+        term_description: {
+            short: "the past 4 weeks",
+            medium: "the past 6 months",
+            long: "all time"
+        },
         state: {
             type: 'tracks',
             term: 'short'
         },
-        playlist_btn: {
-            original: PLAYLIST_BUTTON_TEXT,
-            during: 'Working...',
-            done: 'Done!',
-            current: PLAYLIST_BUTTON_TEXT
-        }
+        playlist_generation: {
+            public: true,
+            in_progress: false,
+            url: '',
+            error: '',
+        },
     },
     computed: {
         user_image: function() {
@@ -53,14 +57,24 @@ var app = new Vue({
         },
         country_flag: function() {
             return (this.userinfo.country) ? countryCodeFlag(this.userinfo.country) : '';
+        },
+        locale_date: function() {
+            let dateArray = new Date().toJSON().slice(0,10).split('-').reverse();
+            if (navigator.language.toLowerCase() == "en-us") {
+                [dateArray[0], dateArray[1]] = [dateArray[1], dateArray[0]];
+            }
+            return dateArray.join('/');
+        },
+        playlist_name: function() {
+            return `Most Played: ${ this.terms[this.state.term] }, ${ this.locale_date }`
+        },
+        playlist_description: function() {
+            return `Your most played tracks from ${ this.term_description[this.state.term] }.`
         }
     },
     watch: {
-        'state.type': function() {
-            this.playlist_btn.current = this.playlist_btn.original;
-        },
         'state.term': function() {
-            this.playlist_btn.current = this.playlist_btn.original;
+            this.playlist_generation.url = this.playlist_generation.error = '';
         },
         access_token: function() {
             if (!access_token) { return }
@@ -85,7 +99,7 @@ var app = new Vue({
         authorise: function() {
             var state = generateRandomString(16);
             localStorage.setItem(stateKey, state);
-            var scope = 'user-read-private user-top-read';
+            var scope = 'user-read-private user-top-read playlist-modify-private playlist-modify-public';
             var url = 'https://accounts.spotify.com/authorize';
             url += '?response_type=token';
             url += '&client_id=' + encodeURIComponent(CLIENT_ID);
@@ -110,24 +124,42 @@ var app = new Vue({
         ms_to_duration: function(ms) {
             return `${ Math.floor(ms / 60000) }:${ String(Math.floor((ms / 1000) % 60)).padStart(2, '0') }`
         },
+        playlist_runtime: function(tracks) {
+            const sum_ms = tracks.map(x => x.duration_ms).reduce((a,b) => a + b, 0);
+            const hours = Math.floor(sum_ms / 3600000);
+            const minutes = Math.round(sum_ms / 60000) % 60;
+            return `${hours} hr ${minutes} min`
+        },
         create_playlist: function() {
             if (!this.axios) { return }
-            this.playlist_btn.current = this.playlist_btn.during;
-            let term_description = (this.state.term === 'short') ? "over the past 4 weeks"
-                            : (this.state.term === 'medium') ? "over the past 6 months"
-                            : "from all time";
+            this.playlist_generation.in_progress = true;
+            this.playlist_generation.error = '';
             this.axios.post(`/users/${this.userinfo.id}/playlists`, {
-                name: `Most Played: ${this.terms[this.state.term]}, ${new Date().toJSON().slice(0,10).split('-').reverse().join('/')}`,
-                description: `Your 50 most played tracks ${term_description}. Made at kushagr.net/spotify-most-played`
+                name: this.playlist_name,
+                description: `${this.playlist_description} Made at kushagr.net/spotify-most-played`,
+                public: this.playlist_generation.public,
             })
             .then((response) => {
                 console.log(response);
-                let id = response.data.id;
-                this.axios.post(`/playlists/${id}/tracks`, {
-                    uris: this.top.tracks[this.state.term].items.map(x => x.uri)
-                }).then((response) => {
-                    this.playlist_btn.current = this.playlist_btn.done;
-                });
+                if (!(response.status == 200 || response.status == 201)) {
+                    this.playlist_generation.error = `Error code ${response.status}. Please try again later.`
+                }
+                else {
+                    const playlistResponse = response;
+                    const id = response.data.id;
+                    this.axios.post(`/playlists/${id}/tracks`, {
+                        uris: this.top.tracks[this.state.term].items.map(x => x.uri)
+                    }).then((response) => {
+                        console.log(response);
+                        this.playlist_generation.in_progress = false;
+                        if (!(response.status == 200 || response.status == 201)) {
+                            this.playlist_generation.error = `${response.status}`
+                        }
+                        else {
+                            this.playlist_generation.url = playlistResponse.data.external_urls.spotify;
+                        }
+                    });
+                }
             });
         }
     }
