@@ -23,23 +23,27 @@ var app = new Vue({
                 long: {}
             }
         },
+        state: {
+            type: 'tracks',
+            term: 'short'
+        },
         types: {
             tracks: 'Top Tracks',
             artists: 'Top Artists'
         },
         terms: {
-            short: 'Short Term (~4 weeks)',
-            medium: 'Medium (~6 months)',
-            long: 'Long Term (All time)'
-        },
-        term_description: {
-            short: "the past 4 weeks",
-            medium: "the past 6 months",
-            long: "all time"
-        },
-        state: {
-            type: 'tracks',
-            term: 'short'
+            short: {
+                name: 'Short Term (~4 weeks)',
+                description: "the past 4 weeks",
+            },
+            medium: {
+                name: 'Medium Term (~6 months)',
+                description: "the past 6 months",
+            },
+            long: {
+                name: 'Long Term (All time)',
+                description: "all time",
+            }
         },
         playlist_generation: {
             public: true,
@@ -66,10 +70,10 @@ var app = new Vue({
             return dateArray.join('/');
         },
         playlist_name: function() {
-            return `Most Played: ${ this.terms[this.state.term] }, ${ this.locale_date }`
+            return `Most Played: ${ this.terms[this.state.term].name }, ${ this.locale_date }`
         },
         playlist_description: function() {
-            return `Your most played tracks from ${ this.term_description[this.state.term] }.`
+            return `Your most played tracks from ${ this.terms[this.state.term].description }.`
         }
     },
     watch: {
