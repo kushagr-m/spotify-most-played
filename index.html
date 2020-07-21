@@ -81,7 +81,7 @@
                         <th scope="row" class="text-center">{{ index + 1 }}</th>
                         <td>
                             <div class="media">
-                                <a v-if="second_last_image(track.album.images)" :href="spotify_url(track)">
+                                <a v-if="second_last_image(track.album.images)" :href="spotify_url(track)" target="_blank">
                                     <img class="track-image align-center-self" :data-src="second_last_image(track.album.images)" :alt="track.album.name">
                                 </a>
                                 <div class="media-body my-auto w-100">
