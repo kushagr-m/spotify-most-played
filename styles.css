@@ -6,6 +6,8 @@
 html {
     position: relative;
     min-height: 100%;
+    /* Responsive font size: modified from https://css-tricks.com/books/fundamental-css-tactics/scale-typography-screen-size/ */
+    font-size: calc(12px + (16 - 12) * ((100vw - 300px) / (1200 - 300)));
 }
 
 .loading-text {
