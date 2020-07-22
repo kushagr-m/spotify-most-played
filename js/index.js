@@ -130,6 +130,17 @@ var app = new Vue({
             const minutes = Math.floor(seconds / 60);
             return `${ minutes }:${ String(seconds % 60).padStart(2, '0') }`
         },
+        playlist_preview_images: function(tracks) {
+            let imgArray = [];
+            for (let track of tracks) {
+                if (imgArray.length >= 4) break;
+                let img = this.second_last_image(track.album.images).toLowerCase();
+                if (img && !imgArray.includes(img)) {
+                    imgArray.push(img);
+                }
+            }
+            return imgArray;
+        },
         playlist_runtime: function(tracks) {
             const sum_ms = tracks.map(x => x.duration_ms).reduce((a,b) => a + b, 0);
             const hours = Math.floor(sum_ms / 3600000);

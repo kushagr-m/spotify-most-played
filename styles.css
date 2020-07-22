@@ -17,10 +17,20 @@ html {
     transform: translateX(-50%);
 }
 
-
 .nav-tabs-right-buttons {
     position: absolute;
     right: 1rem;
+}
+
+.playlist-preview-images {
+    display: grid;
+    max-width: 45vw;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.playlist-preview-images > img {
+    width: 100%;
 }
 
 @media (min-width: 768px) {

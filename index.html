@@ -48,9 +48,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="bg-dark text-light card card-body mb-2">
-                            <div class="media" v-if="top.tracks[state.term].items">
-                                <img :src="second_last_image(top.tracks[state.term].items[0].album.images)" class="align-self-center mr-3" style="width:25%" alt="...">
-                                <div class="media-body">
+                            <div class="row" v-if="top.tracks[state.term].items">
+                                <div class="col-sm-3 pr-sm-0 pb-3">
+                                    <div class="playlist-preview-images mx-auto">
+                                        <img v-for="img of playlist_preview_images(top.tracks[state.term].items)" :src="img">
+                                    </div>
+                                </div>
+                                <div class="col">
                                     <span class="d-block mb-0" style="font-size: 0.5rem;">
                                         PLAYLIST PREVIEW
                                     </span>
