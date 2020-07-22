@@ -140,7 +140,7 @@ var app = new Vue({
             this.playlist_generation.error = '';
             this.axios.post(`/users/${this.userinfo.id}/playlists`, {
                 name: this.playlist_name,
-                description: `${this.playlist_description} Made at kushagr.net/spotify-most-played`,
+                description: `${this.playlist_description} Made at https://mostplayed.kushagr.net/`,
                 public: this.playlist_generation.public,
             })
             .then((response) => {
