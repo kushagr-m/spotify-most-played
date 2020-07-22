@@ -126,7 +126,9 @@ var app = new Vue({
             return obj.external_urls.spotify ? obj.external_urls.spotify : '';
         },
         ms_to_duration: function(ms) {
-            return `${ Math.floor(ms / 60000) }:${ String(Math.floor((ms / 1000) % 60)).padStart(2, '0') }`
+            const seconds = Math.round(ms / 1000);
+            const minutes = Math.floor(seconds / 60);
+            return `${ minutes }:${ String(seconds % 60).padStart(2, '0') }`
         },
         playlist_runtime: function(tracks) {
             const sum_ms = tracks.map(x => x.duration_ms).reduce((a,b) => a + b, 0);
