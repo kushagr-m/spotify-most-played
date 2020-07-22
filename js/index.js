@@ -28,8 +28,8 @@ var app = new Vue({
             term: 'short'
         },
         types: {
-            tracks: 'Top Tracks',
-            artists: 'Top Artists'
+            tracks: 'Tracks',
+            artists: 'Artists'
         },
         terms: {
             short: {

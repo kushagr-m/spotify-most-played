@@ -121,15 +121,21 @@
                 </div>
             </div>
 
-            <div class="term-button d-block">
+            <select class="custom-select d-inline-block d-md-none" v-model="state.term">
+                <option v-for="(val, key) in terms" :value="key">
+                    {{ val.name }}
+                </option>
+            </select>
+
+            <div class="nav-tabs-right-buttons d-block">
 
                 <!-- Playlist button - triggers modal -->
-                <button type="button" class="btn btn-success d-inline-block my-1" data-toggle="modal" data-target="#playlistModal" :disabled="state.type != 'tracks'">
-                    Make a playlist!
+                <button type="button" class="btn btn-success d-inline-block mt-1 mb-n4 mb-md-1" data-toggle="modal" data-target="#playlistModal">
+                    Make playlist!
                 </button>
 
-                <!-- Term selector -->
-                <div class="dropdown mb-sm-n4 d-inline-block">
+                <!-- Term selector for md or higher-->
+                <div class="dropdown mb-n4 d-none d-md-inline-block">
                     <button class="btn btn-secondary dropdown-toggle my-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ terms[state.term].name }}
                     </button>
@@ -146,6 +152,7 @@
                 <li v-for="(val, key) in types" class="nav-item d-block">
                     <br>
                     <button class="nav-link" v-bind:class="{ active: state.type == key }" v-on:click.stop.prevent="state.type = key" data-target="#">
+                        <span class="d-none d-md-inline">Top</span>
                         {{ val }}
                     </button>
                 </li>

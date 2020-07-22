@@ -16,11 +16,14 @@ html {
     left: 50%;
     transform: translateX(-50%);
 }
+
+
+.nav-tabs-right-buttons {
+    position: absolute;
+    right: 1rem;
+}
+
 @media (min-width: 768px) {
-    .term-button {
-        position: absolute;
-        right: 1rem;
-    }
     .type-nav {
         margin-top: -1.25rem!important;
     }
