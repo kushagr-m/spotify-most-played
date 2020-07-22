@@ -1,5 +1,7 @@
 # Most Played for Spotify
 
+**Available at [Most Played for Spotify](https://mostplayed.kushagr.net)**
+
 Shows a listener their top 50 tracks and artists over 3 time periods.
 
 ![Screenshot](https://i.imgur.com/1yFXRhh.png)
