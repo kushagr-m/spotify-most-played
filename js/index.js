@@ -54,13 +54,17 @@ var app = new Vue({
     },
     computed: {
         user_image: function() {
-            if (this.userinfo.images && this.userinfo.images[0] && this.userinfo.images[0].url) {
-                return this.userinfo.images[0].url;
-            }
-            return null;
+            return (this.userinfo.images 
+                    && this.userinfo.images[0] 
+                    && this.userinfo.images[0].url)
+                ? this.userinfo.images[0].url
+                : null;
         },
         country_flag: function() {
-            return (this.userinfo.country) ? countryCodeFlag(this.userinfo.country) : '';
+            /* https://medium.com/binary-passion/lets-turn-an-iso-country-code-into-a-unicode-emoji-shall-we-870c16e05aad */
+            return (this.userinfo.country)
+                ? String(this.userinfo.country).toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0)+127397))
+                : '';
         },
         locale_date: function() {
             let dateArray = new Date().toJSON().slice(0,10).split('-').reverse();
@@ -211,17 +215,9 @@ function generateRandomString(length) {
     return text;
 }
 
-/*
-    Converts ISO 3166-1 alpha-2 country code to emoji flag.
-    https://medium.com/binary-passion/lets-turn-an-iso-country-code-into-a-unicode-emoji-shall-we-870c16e05aad
-*/
-const countryCodeFlag = cc => String(cc).toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0)+127397));
-
 /* main(): authorise app on start. */
 var stateKey = 'spotify_auth_state';
-
 var params = getHashParams();
-
 var access_token = params.access_token,
     state = params.state,
     storedState = localStorage.getItem(stateKey);
