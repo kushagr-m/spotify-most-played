@@ -115,12 +115,23 @@
         <div class="container mb-5" v-cloak :class="{ 'd-none': !loaded }" style="position: relative;">
 
             <!-- User info box -->
-            <div v-show="userinfo" class="card card-body bg-light my-3" v-cloak>
+            <div v-show="userinfo" class="card card-body bg-light my-3 p-3" v-cloak>
                 <div class="media">
-                    <img class="img-fluid rounded align-center-self mr-3" v-if="user_image" style="max-width: 5rem;" :src="user_image">
+                    <img v-if="user_image" class="img-fluid rounded align-center-self mr-3" style="max-width: 5rem;" :src="user_image">
                     <div class="media-body my-auto">
-                        <h4>{{ userinfo.display_name }} {{ country_flag }}</h4>
-                        <span v-if="userinfo.followers">Followers: {{ userinfo.followers.total }}<br></span>
+                        <h4 class="mb-0">
+                            {{ userinfo.display_name }} {{ country_flag }}
+                        </h4>
+                        <small>
+                            <a class="link-unstyled" :href="userinfo.external_urls.spotify" target="_blank">
+                                {{ userinfo.id }}
+                            </a>
+                            <span v-if="userinfo.followers">
+                                &bullet;
+                                {{ userinfo.followers.total }} 
+                                follower<span v-if="userinfo.followers != 1">s</span>   
+                            </span>
+                        </small>
                     </div>
                 </div>
             </div>
