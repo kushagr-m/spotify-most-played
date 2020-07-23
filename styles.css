@@ -54,6 +54,11 @@ html {
     text-align: center;
 }
 
+.runtime-col {
+    width: 4rem;
+    text-align: left;
+}
+
 @media (min-width: 768px) {
     .track-image {
         height: 3.5rem;
