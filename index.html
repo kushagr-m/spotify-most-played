@@ -231,6 +231,7 @@
                     <tr>
                         <th scope="col" class="number-col">#</th>
                         <th scope="col">Artist</th>
+                        <th scope="col" class="d-none d-md-table-cell w-50">Genres</th>
                     </tr>
                 </thead>
                 <tbody v-for="(val, key) in terms" v-show="state.term == key"  v-lazy-container="{ selector: 'img' }">
@@ -245,6 +246,9 @@
                                     {{ artist.name }}
                                 </div>
                             </div>
+                        </td>
+                        <td>
+                            <span v-for="genre in artist.genres" class="badge badge-light mx-1">{{ genre }}</span>
                         </td>
                     </tr>
                 </tbody>
