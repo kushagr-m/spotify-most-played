@@ -69,8 +69,7 @@ html {
 
 
 .explicit {
-    font-size: 0.6rem;
-    vertical-align: 2px;
+    vertical-align: 0px;
 }
 
 .table td, .table th {
