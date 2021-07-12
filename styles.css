@@ -49,6 +49,10 @@ html {
     margin-right: 0.75rem;
 }
 
+.w-40 {
+    width: 40%;
+}
+
 .number-col {
     width: 2rem;
     text-align: center;
