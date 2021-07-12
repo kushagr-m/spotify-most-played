@@ -20,7 +20,7 @@
     <script defer src="js/index.js"></script>
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="pb-3">
 
         <!-- Modal: Generate Playlist -->
         <div class="modal fade" id="playlistModal" tabindex="-1" role="dialog" aria-labelledby="playlistModalLabel" aria-hidden="true">
@@ -244,11 +244,13 @@
                                 </a>
                                 <div class="media-body my-auto">
                                     {{ artist.name }}
+                                    <br>
+                                    <span v-for="genre in artist.genres.slice(0,2)" class="d-md-none badge badge-light mx-1">{{ genre }}</span>
                                 </div>
                             </div>
                         </td>
                         <td class="d-none d-md-table-cell">
-                            <span v-for="genre in artist.genres" class="badge badge-light mx-1">{{ genre }}</span>
+                            <span v-for="genre in artist.genres" class="badge badge-light mx-1">{{ genre }}<br></span>
                         </td>
                     </tr>
                 </tbody>
