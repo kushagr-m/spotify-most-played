@@ -179,6 +179,7 @@
                     <tr>
                         <th scope="col" class="number-col">#</th>
                         <th scope="col">Track</th>
+                        <th scope="col" class="d-none d-md-table-cell">Album</th>
                         <th scope="col" class="d-none d-md-table-cell runtime-col">&nbsp;🕐</th>
                     </tr>
                 </thead>
@@ -193,13 +194,14 @@
                                 <div class="media-body my-auto w-100">
                                     {{ track.name }}
                                     <div class="text-muted small">
-                                        <span v-if="track.explicit" class="explicit">&#x1F174;</span>
+                                        <!-- <span v-if="track.explicit" class="explicit">&#x1F174;</span> -->
+                                        <span v-if="track.explicit" class="explicit">🅴</span>
                                         <span v-for="(artist, key) in track.artists">
                                             <a class="link-unstyled" :href="spotify_url(artist)">
                                                 {{ artist.name }}</a><span v-if="key !== track.artists.length-1">, </span>
 
                                         </span>
-                                        <span class="d-none d-md-inline">
+                                        <span class="d-inline d-md-none">
                                             &bullet;
                                             <a class="link-unstyled" :href="spotify_url(track.album)">
                                                 {{ track.album.name }}
@@ -208,6 +210,13 @@
                                     </div>
                                 </div>
                             </div>
+                        </td>
+                        <td class="d-none d-md-table-cell text-muted">
+                            <span class="d-none d-md-inline">
+                                <a class="link-unstyled" :href="spotify_url(track.album)">
+                                    {{ track.album.name }}
+                                </a>
+                            </span>
                         </td>
                         <td class="d-none d-md-table-cell text-muted">
                             {{ ms_to_duration(track.duration_ms) }}
